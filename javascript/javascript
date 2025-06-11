@@ -1,0 +1,101 @@
+// ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จากไฟล์ auth.json
+const userData = () => {
+    return fetch("auth.json")
+        .then(response => response.json())
+        .then(data => authData = data)
+}
+
+// ฟังก์ชันสำหรับดึงค่า cookie ตาม cookieName ที่ระบุ
+    const getCookie = (cookieName) => {
+        const cookies = document.cookie.split(';');
+        const cookie = cookies.find(cookie => cookie.trim().startsWith(cookieName + '='));
+        if (cookie) {
+            return cookie.split('=')[1];
+        }
+        return null;
+    }
+
+// ฟังก์ชันสำหรับตั้งค่า cookie โดยจะหมดอายุใน 5 นาที
+const setCookie = (cookieName, cookieValue) => {
+    const calculateFiveMinuteExpiry = () => {
+        const now = new Date();
+        const fiveMinutesLater = new Date(now.getTime() + 5 * 60 * 1000);
+        return fiveMinutesLater.toUTCString();
+    };
+
+    const expirationDate = calculateFiveMinuteExpiry();
+    
+    document.cookie = `${cookieName}=${cookieValue}; expires=${expirationDate}; path=/`;
+}
+
+
+// ฟังก์ชันตรวจสอบการยืนยันตัวตน ถ้าไม่มี cookie จะ redirect ไปหน้า login
+const checkAuth = () => {
+    if (window.location.pathname.includes('login.html')) {
+        return;
+    }
+
+    const userCookie = document.cookie
+        .split(';')
+        .find(row => row.trim().startsWith('userInfo='));
+    
+    if (!userCookie) {
+        localStorage.removeItem('userInfo');
+        window.location.href = "Assets/login.html";
+    }
+}
+
+// ฟังก์ชันตรวจสอบหน้า login ถ้ามีข้อมูลผู้ใช้อยู่แล้วจะ redirect ไปหน้าหลัก
+const checkLoginPage = () => {
+    const getUserInfo = localStorage.getItem('userInfo');
+    const checkLoginPath = window.location.pathname.includes('login.html');
+    if (getUserInfo && checkLoginPath) {
+        window.location.href = "../index.html";
+    }
+}
+
+// ฟังก์ชันตรวจสอบการเข้าสู่ระบบ
+const checkLogin = () => {
+    userData().then(() => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const user = authData.find(user => 
+            user.email === email && 
+            user.password === password
+        );
+
+        if (user) {
+            const userDataToStorage = {
+                role: user.role,
+                username: user.username
+            };
+
+            setCookie("userInfo", JSON.stringify(userDataToStorage));
+            localStorage.setItem("userInfo", JSON.stringify(userDataToStorage));
+            window.location.href = "../index.html";
+        } else {
+            window.location.href = "Assets/login.html";
+        }
+    });
+}
+
+// Event Listeners
+
+// รับ event การ submit form จากหน้า login
+const loginForm = document.getElementById("login-form");
+if (loginForm) {
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        checkLogin();
+    });
+}
+
+// เมื่อโหลดหน้าเว็บเสร็จ จะตรวจสอบสถานะการล็อกอินและการยืนยันตัวตน
+document.addEventListener('DOMContentLoaded', () => {
+    checkLoginPage();
+    const checkIndexPath = window.location.pathname === '/index.html';
+    if (checkIndexPath) {
+        checkAuth();
+    }
+});
+

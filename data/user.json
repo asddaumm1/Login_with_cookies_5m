@@ -1,0 +1,16 @@
+[
+    {
+        "username": "user1",
+        "password": "a7xyk@!",
+        "email": "user1@gmail.com",
+        "role": "admin",
+        "avartar": "https://smarthr.co.in/demo/html/template/assets/img/profiles/avatar-14.jpg"
+    },
+    {
+        "username": "user2",
+        "password": "Mext65tS@!",
+        "email": "user2@gmail.com",
+        "role": "user",
+        "avartar": "https://smarthr.co.in/demo/html/template/assets/img/profiles/avatar-29.jpg"
+    }
+]

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header-container {
+    background-color: #8A817C;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.header-content .logo {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Anton", sans-serif;
+    font-weight: 500;
+    letter-spacing: 5px;
+    cursor: default;
+}
+
+.header-content .logo a {
+    text-decoration: none;
+    color: #E0AFA0;
+}
+
+.header-content .navigation-bar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.header-content .navigation-bar ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: #F4F3EE;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    height: 50px;
+    width: 130px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-content .navigation-bar ul li a:hover {
+    color: rgb(145, 255, 0);
+    text-shadow: 0 0 15px rgb(0, 0, 0);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.main-content h1 {
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    color: #00ff00;
+    animation: upAndDown 1000ms infinite alternate-reverse;
+
+}
+
+@keyframes upAndDown {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
