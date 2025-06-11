@@ -1,0 +1,22 @@
+{
+  "name": "login_cookie",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asddaumm1/Login_with_cookies_5m.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asddaumm1/Login_with_cookies_5m/issues"
+  },
+  "homepage": "https://github.com/asddaumm1/Login_with_cookies_5m#readme",
+  "description": "",
+  "dependencies": {
+    "chart.js": "^4.4.9"
+  }
+}
